@@ -83,6 +83,7 @@ while True:
     display.scroll("{} {} {}".format(op1, operation_symbol[operation - 1], op2))
 
     start = utime.ticks_ms()
+    # Show result for 2 seconds
     while utime.ticks_diff(utime.ticks_ms(), start) < 2000:
         display.show(str(calculate(op1, op2, operation)))
 
