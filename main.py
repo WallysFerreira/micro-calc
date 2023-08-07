@@ -12,7 +12,7 @@ def read_operation():
     while utime.ticks_diff(utime.ticks_ms(), start) < 600:
         if button_a.was_pressed():
             start = utime.ticks_ms()
-            presses = presses + 1
+            presses += 1
 
     if presses >= 1 and presses <= 4:
         operation_accepted = 1
