@@ -1,4 +1,4 @@
-# uCalc
+# micro:calc
 
 Calculator for the micro:bit made using MicroPython
 
