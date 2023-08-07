@@ -62,7 +62,7 @@ def calculate(op1, op2, operation):
     elif operation == 3:
         return op1 * op2
     elif operation == 4:
-        return op1 / op2
+        return op1 // op2
 
 
 # Main
