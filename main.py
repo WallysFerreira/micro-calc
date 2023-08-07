@@ -19,6 +19,8 @@ def read_operation():
     else:
         display.scroll("Invalid operation")
 
+    return presses
+
 # Read 4-bit operators bit by bit from right to left
 def read_operators():
     op = 0b1000
@@ -34,11 +36,11 @@ def read_operators():
             if bit_idx == count + 1:
                 str += "x"
             elif bit_idx > count:
-                str = "{}{}".format(str, (op >> (bit_idx - 1) & 1))
+                str = "{}{}".format(str, (op >> (4 - bit_idx) & 1))
             else:
                 str += "0"
 
-        display.scroll(str)
+            display.scroll(str)
 
         # Read that bit
         while (not pressed):
@@ -46,17 +48,26 @@ def read_operators():
             if button_a.was_pressed():
                 op = op & ~(1 << (3 - count))
                 pressed = True
-                display.scroll("Read!")
             elif button_b.was_pressed():
                 op = op | (1 << (3 - count))
                 pressed = True
-                display.scroll("Read!")
 
-    display.scroll(op)
     return op
+
+def calculate(op1, op2, operation):
+    if operation == 1:
+        return op1 + op2
+    elif operation == 2:
+        return op1 - op2
+    elif operation == 3:
+        return op1 * op2
+    elif operation == 4:
+        return op1 / op2
+
 
 # Main
 while True:
+    operation_symbol = ["+", "-", "*", "/"]
     presses = -1
     operation_accepted = 0
 
@@ -64,10 +75,16 @@ while True:
 
     while not operation_accepted:
         if button_a.was_pressed():
-            read_operation()
+            operation = read_operation()
 
     op1 = read_operators()
     op2 = read_operators()
+
+    display.scroll("{} {} {}".format(op1, operation_symbol[operation - 1], op2))
+
+    start = utime.ticks_ms()
+    while utime.ticks_diff(utime.ticks_ms(), start) < 2000:
+        display.show(str(calculate(op1, op2, operation)))
 
     sleep(300)
 
