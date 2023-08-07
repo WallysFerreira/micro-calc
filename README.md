@@ -1,6 +1,6 @@
 # micro:calc
 
-Calculator for the micro:bit made using MicroPython
+Calculator for the micro:bit made with MicroPython
 
 ## How to use
 
