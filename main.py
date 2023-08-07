@@ -40,7 +40,7 @@ def read_operators():
             else:
                 str += "0"
 
-            display.scroll(str)
+        display.scroll(str)
 
         # Read that bit
         while (not pressed):
